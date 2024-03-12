@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+package "Order microservice" {
+  [Orders]
+  [Payment]
+  [Shipping]
+}
+
+[Orders] --> [Payment]
+[Orders] --> [Shipping]
+[Orders] -left-> [Carts]
+[Orders] -right-> [Users]
+[Products] --> [Carts]
+[Products] --> [Orders]
+
+component [Carts] #Yellow
+component [Products] #Cyan
+component [Orders] #Green
+component [Payment] #Lime
+component [Shipping] #MediumSpringGreen
+component [Users] #DarkOrange
+
+@enduml

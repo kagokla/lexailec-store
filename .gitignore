@@ -1,0 +1,20 @@
+target
+.DS_Store
+# Eclipse output and metadata (users should run `gradle eclipse` to generate)
+.classpath
+.project
+.settings
+.springBeans
+*.iml
+*.ipr
+*.iws
+.idea/
+.gradle/
+build/
+bin/
+.flattened-pom.xml
+**/derby.log
+### VS code ###
+.vscode*
+*.code-workspace
+
