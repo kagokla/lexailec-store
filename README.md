@@ -9,9 +9,13 @@ features:
 - A user can add/remove/update the products in the cart.
 - A user can place an order.
 - A user can modify the shipping address.
-- The application can only support a single currency.
 
-LEXAILEC store is implemented using the Domain-Driven Design principles
+LEXAILEC store is implemented using the Domain-Driven Design principles.
+Meaning some business principles will be enforced, like:
+
+- The number of products added to a cart must be at least one
+- Once a product is added to the cart, it's total quantity in the cart must not exceed the maximum number of the product
+  still available in the warehouse
 
 ## Requirements
 

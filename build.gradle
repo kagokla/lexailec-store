@@ -22,6 +22,9 @@ dependencies {
     // Mapstruct
     implementation(libs.mapstruct)
     annotationProcessor(libs.bundles.mapstruct.processor)
+
+    // TEST
+    testImplementation(libs.archunit)
 }
 
 test {
