@@ -1,0 +1,119 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class BaseEntity {
+- id : UUID
+- createdAt : Long
+- updatedAt : Long
+}
+
+class PhoneNumber {
+- prefix : int
+- number : String
+}
+
+class EmailAddress {
+- localPart : String
+- domain : String
+}
+
+class Contact {
+- phone : PhoneNumber
+- email : EmailAddress
+}
+
+class Address {
+- street : String
+- city : String
+- country : String
+}
+
+class Username {
+- firstName : String
+- lastName : String
+}
+
+entity Customer extends BaseEntity {
+- username : Username
+- birthDate : LocalDate
+- contact : Contact
+- address : Address
++ updateContact(Contact) : Customer
++ updateAddress(Address) : Customer
+}
+
+enum Currency {
+DOLLAR
+EURO
+}
+
+class Money {
+- amount : BigDecimal
+- currency : Currency
++ add(Money) : Money
++ subtract(Money) : Money
+}
+
+entity Product extends BaseEntity {
+- name : String
+- price : Money
++ void setName(String)
++ void setPrice(Money)
+}
+
+enum PaymentStatus {
+SUBMITTED
+PROCESSING
+COMPLETED
+}
+
+entity Payment extends BaseEntity {
+- paymentMethod : String
+- totalAmount : Money
+- status : PaymentStatus
++ void setStatus(PaymentStatus)
++ void setCompletedAt(Date)
+}
+
+
+entity Shipment extends BaseEntity {
+- username : Username
+- contact : Contact
+- address : Address
++ void setCompletedAt(Date)
+}
+
+class Cart {
+- productToQuantity : Hashmap<Product, int>
+- totalAmount : Money
+}
+
+enum OrderStatus {
+SUBMITTED
+PROCESSING
+COMPLETED
+}
+
+entity Order extends BaseEntity {
+- status : OrderStatus
++ void setStatus(OrderStatus)
++ void setCompletedAt(Date)
+}
+
+Cart -- Product
+Payment -- Money
+Product -- Money
+Currency *-- Money : use
+OrderStatus *-- Order : use
+PaymentStatus *-- Payment : use
+Contact -- PhoneNumber
+Contact -- EmailAddress
+Customer -- Contact
+Customer -- Username
+Customer -- Address
+Shipment -- Contact
+Shipment -- Username
+Shipment -- Address
+
+@enduml

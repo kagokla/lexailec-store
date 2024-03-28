@@ -1,5 +1,7 @@
 plugins {
+    id 'jacoco'
     id 'java'
+    alias(libs.plugins.lombok)
 }
 
 group = 'com.github.kagokla'
@@ -14,8 +16,12 @@ compileJava {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // Apache commons
+    implementation(libs.bundles.apache.common.helpers)
+
+    // Mapstruct
+    implementation(libs.mapstruct)
+    annotationProcessor(libs.bundles.mapstruct.processor)
 }
 
 test {

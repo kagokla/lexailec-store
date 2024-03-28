@@ -1,0 +1,26 @@
+[versions]
+commons-collections4 = "4.4"
+commons-lang3 = "3.14.0"
+lombok = "8.6"
+lombok-mapstruct-binding = "0.2.0"
+mapstruct = "1.5.5.Final"
+
+[libraries]
+apache-commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "commons-collections4" }
+apache-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
+lombok-mapstruct-binding = { module = "org.projectlombok:lombok-mapstruct-binding", version.ref = "lombok-mapstruct-binding" }
+mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
+mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
+
+[bundles]
+mapstruct-processor = [
+    "lombok-mapstruct-binding",
+    "mapstruct-processor",
+]
+apache-common-helpers = [
+    "apache-commons-collections4",
+    "apache-commons-lang3",
+]
+
+[plugins]
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }

@@ -11,6 +11,8 @@ features:
 - A user can modify the shipping address.
 - The application can only support a single currency.
 
+LEXAILEC store is implemented using the Domain-Driven Design principles
+
 ## Requirements
 
 - Adoptium Temurin 21: https://adoptium.net/
