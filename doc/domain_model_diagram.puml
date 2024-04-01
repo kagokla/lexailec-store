@@ -57,6 +57,7 @@ class Price {
 
 entity Product extends BaseEntity {
 - name : String
+- description : String
 - price : Price
 + void setName(String)
 + void setPrice(Price)
