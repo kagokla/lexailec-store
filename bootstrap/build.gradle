@@ -1,0 +1,6 @@
+plugins {
+    id 'lexailecstore.java-conventions'
+}
+
+dependencies {
+}

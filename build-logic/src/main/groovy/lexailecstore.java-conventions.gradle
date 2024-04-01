@@ -1,10 +1,9 @@
 plugins {
     id 'jacoco'
     id 'java'
-    alias(libs.plugins.lombok)
 }
 
-group = 'com.github.kagokla'
+group = 'com.github.kagokla.store'
 version = '1.0.0-SNAPSHOT'
 
 repositories {
@@ -18,10 +17,6 @@ compileJava {
 dependencies {
     // Apache commons
     implementation(libs.bundles.apache.common.helpers)
-
-    // Mapstruct
-    implementation(libs.mapstruct)
-    annotationProcessor(libs.bundles.mapstruct.processor)
 
     // TEST
     testImplementation(libs.archunit)

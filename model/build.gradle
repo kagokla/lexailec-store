@@ -1,0 +1,8 @@
+plugins {
+    id 'lexailecstore.java-conventions'
+    // Moved here due to https://github.com/gradle/gradle/issues/15383
+    alias(libs.plugins.lombok)
+}
+
+dependencies {
+}

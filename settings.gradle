@@ -1,2 +1,6 @@
-rootProject.name = 'lexailec-store'
+pluginManagement {
+    includeBuild('build-logic')
+}
 
+rootProject.name = 'lexailec-store'
+include('model', 'application', 'adapter', 'bootstrap')
