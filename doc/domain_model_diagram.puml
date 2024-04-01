@@ -48,18 +48,18 @@ DOLLAR
 EURO
 }
 
-class Money {
+class Price {
 - amount : BigDecimal
 - currency : Currency
-+ add(Money) : Money
-+ subtract(Money) : Money
++ add(Price) : Price
++ subtract(Price) : Price
 }
 
 entity Product extends BaseEntity {
 - name : String
-- price : Money
+- price : Price
 + void setName(String)
-+ void setPrice(Money)
++ void setPrice(Price)
 }
 
 enum PaymentStatus {
@@ -68,9 +68,15 @@ PROCESSING
 COMPLETED
 }
 
+enum PaymentMethod {
+VISA
+MASTERCARD
+PAYPAL
+}
+
 entity Payment extends BaseEntity {
-- paymentMethod : String
-- totalAmount : Money
+- paymentMethod : PaymentMethod
+- totalAmount : Price
 - status : PaymentStatus
 + void setStatus(PaymentStatus)
 + void setCompletedAt(Date)
@@ -86,7 +92,7 @@ entity Shipment extends BaseEntity {
 
 class Cart {
 - productToQuantity : Hashmap<Product, int>
-- totalAmount : Money
+- totalAmount : Price
 }
 
 enum OrderStatus {
@@ -102,11 +108,12 @@ entity Order extends BaseEntity {
 }
 
 Cart -- Product
-Payment -- Money
-Product -- Money
-Currency *-- Money : use
+Payment -- Price
+Product -- Price
+Currency *-- Price : use
 OrderStatus *-- Order : use
 PaymentStatus *-- Payment : use
+PaymentMethod *-- Payment : use
 Contact -- PhoneNumber
 Contact -- EmailAddress
 Customer -- Contact
