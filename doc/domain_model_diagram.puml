@@ -3,7 +3,7 @@
 
 
 class BaseEntity {
-- id : UUID
+- id : String
 - createdAt : Long
 - updatedAt : Long
 }
@@ -26,6 +26,7 @@ class Contact {
 class Address {
 - street : String
 - city : String
+- postalCode : String
 - country : String
 }
 
@@ -43,11 +44,6 @@ entity Customer extends BaseEntity {
 + updateAddress(Address) : Customer
 }
 
-enum Currency {
-DOLLAR
-EURO
-}
-
 class Price {
 - amount : BigDecimal
 - currency : Currency
@@ -59,7 +55,7 @@ entity Product extends BaseEntity {
 - name : String
 - description : String
 - price : Price
-+ void setName(String)
+- remainingStock : int
 + void setPrice(Price)
 }
 
@@ -91,9 +87,11 @@ entity Shipment extends BaseEntity {
 + void setCompletedAt(Date)
 }
 
-class Cart {
+entity Cart extends BaseEntity {
+- customer : BaseEntity
 - productToQuantity : Hashmap<Product, int>
 - totalAmount : Price
++ void addProduct(product : Product, quantity : int)
 }
 
 enum OrderStatus {
@@ -108,10 +106,10 @@ entity Order extends BaseEntity {
 + void setCompletedAt(Date)
 }
 
-Cart -- Product
+Cart o-- Product
+Cart *-- Customer
 Payment -- Price
 Product -- Price
-Currency *-- Price : use
 OrderStatus *-- Order : use
 PaymentStatus *-- Payment : use
 PaymentMethod *-- Payment : use
