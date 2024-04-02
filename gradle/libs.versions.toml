@@ -1,13 +1,18 @@
 [versions]
 archunit = "1.2.1"
+assertJ = "3.25.1"
 commons-collections4 = "4.4"
 commons-lang3 = "3.14.0"
+junit5-jupiter = "5.10.2"
 lombok = "8.6"
+pitest = "1.15.0"
 
 [libraries]
 archunit = { module = "com.tngtech.archunit:archunit", version.ref = "archunit" }
+assertJ = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
 apache-commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "commons-collections4" }
 apache-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
+junit5-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5-jupiter" }
 
 [bundles]
 apache-common-helpers = [
@@ -17,3 +22,4 @@ apache-common-helpers = [
 
 [plugins]
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
+pitest = { id = "info.solidsoft.pitest", version.ref = "pitest" }
