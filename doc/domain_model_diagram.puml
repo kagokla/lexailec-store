@@ -4,8 +4,6 @@
 
 class BaseEntity {
 - id : String
-- createdAt : Long
-- updatedAt : Long
 }
 
 class PhoneNumber {
@@ -48,7 +46,7 @@ class Price {
 - amount : BigDecimal
 - currency : Currency
 + add(Price) : Price
-+ subtract(Price) : Price
++ multiply(int) : Price
 }
 
 entity Product extends BaseEntity {
@@ -56,7 +54,6 @@ entity Product extends BaseEntity {
 - description : String
 - price : Price
 - remainingStock : int
-+ void setPrice(Price)
 }
 
 enum PaymentStatus {
