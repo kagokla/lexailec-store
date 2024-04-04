@@ -30,6 +30,7 @@ class IdGeneratorUtilsTest {
         final var randomProductId = IdGeneratorUtils.generateRandomProductId();
 
         assertThat(randomProductId).isNotBlank().startsWith(IdGeneratorUtils.PRODUCT_ID_PREFIX);
+        assertThat(randomProductId.length()).isGreaterThan(IdGeneratorUtils.PRODUCT_ID_PREFIX.length());
     }
 
     @Test
@@ -37,5 +38,6 @@ class IdGeneratorUtilsTest {
         final var randomCustomerId = IdGeneratorUtils.generateRandomCustomerId();
 
         assertThat(randomCustomerId).isNotBlank().startsWith(IdGeneratorUtils.CUSTOMER_ID_PREFIX);
+        assertThat(randomCustomerId.length()).isGreaterThan(IdGeneratorUtils.CUSTOMER_ID_PREFIX.length());
     }
 }
