@@ -10,4 +10,5 @@ pitest {
 }
 
 dependencies {
+    implementation(libs.moneta)
 }
