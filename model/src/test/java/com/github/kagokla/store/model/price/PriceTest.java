@@ -3,11 +3,11 @@ package com.github.kagokla.store.model.price;
 import com.github.kagokla.store.model.ModelTestBase;
 import org.junit.jupiter.api.Test;
 
+import javax.money.Monetary;
+import javax.money.UnknownCurrencyException;
 import java.math.BigDecimal;
-import java.util.Currency;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.*;
 
 class PriceTest extends ModelTestBase {
 
@@ -35,12 +35,16 @@ class PriceTest extends ModelTestBase {
 
     @Test
     void shouldFailWhenPriceCurrencyUnknown() {
-        assertThatIllegalArgumentException().isThrownBy(() -> new Price(new BigDecimal("666"), Currency.getInstance("KOKO")));
+        // Given
+        // When
+        final var thrown = catchThrowable(() -> new Price(new BigDecimal("666"), Monetary.getCurrency("KOKO")));
+        // Then
+        assertThat(thrown).isInstanceOf(UnknownCurrencyException.class);
     }
 
     @Test
     void shouldFailWhenPriceCurrencyFractionDigitsGreaterThanAmountScale() {
-        assertThatIllegalArgumentException().isThrownBy(() -> new Price(new BigDecimal("98.7"), Currency.getInstance("JPY")));
+        assertThatIllegalArgumentException().isThrownBy(() -> new Price(new BigDecimal("98.7"), Monetary.getCurrency("JPY")));
     }
 
     @Test
@@ -51,7 +55,7 @@ class PriceTest extends ModelTestBase {
         final var result = firstPrice.add(secondPrice);
         assertThat(result).isNotNull();
         assertThat(result.amount()).isEqualByComparingTo(new BigDecimal("111.43"));
-        assertThat(result.currency()).isEqualTo(Currency.getInstance("EUR"));
+        assertThat(result.currency()).isEqualByComparingTo(Monetary.getCurrency("EUR"));
     }
 
     @Test
@@ -76,12 +80,12 @@ class PriceTest extends ModelTestBase {
         var result = price.multiply(3);
         assertThat(result).isNotNull();
         assertThat(result.amount()).isEqualByComparingTo(new BigDecimal("170.1"));
-        assertThat(result.currency()).isEqualTo(Currency.getInstance("USD"));
+        assertThat(result.currency()).isEqualByComparingTo(Monetary.getCurrency("USD"));
 
         result = price.multiply(0);
         assertThat(result).isNotNull();
         assertThat(result.amount()).isEqualByComparingTo(BigDecimal.ZERO);
-        assertThat(result.currency()).isEqualTo(Currency.getInstance("USD"));
+        assertThat(result.currency()).isEqualByComparingTo(Monetary.getCurrency("USD"));
     }
 
     @Test
