@@ -2,20 +2,16 @@ package com.github.kagokla.store.model.product;
 
 import com.github.kagokla.store.model.ModelTestBase;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.security.SecureRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class ProductTest extends ModelTestBase {
-
-    private final SecureRandom random = new SecureRandom();
 
     @Test
     void shouldCreateNewProduct() {
@@ -107,13 +103,5 @@ class ProductTest extends ModelTestBase {
         assertThat(product.getName()).isNotBlank();
         assertThat(product.getPrice()).isNotNull();
         assertThat(product.getRemainingStock()).isPositive().isLessThan(100);
-    }
-
-    private Product buildRandomProduct() {
-        final var name = RandomStringUtils.randomAlphabetic(10);
-        final var description = "Description for: " + name;
-        final var price = buildPriceUSD(BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP));
-
-        return new Product(name, description, price, random.nextInt(100));
     }
 }
