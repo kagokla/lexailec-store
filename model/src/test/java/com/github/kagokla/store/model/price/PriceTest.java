@@ -35,10 +35,8 @@ class PriceTest extends ModelTestBase {
 
     @Test
     void shouldFailWhenPriceCurrencyUnknown() {
-        // Given
-        // When
         final var thrown = catchThrowable(() -> new Price(new BigDecimal("666"), Monetary.getCurrency("KOKO")));
-        // Then
+
         assertThat(thrown).isInstanceOf(UnknownCurrencyException.class);
     }
 
