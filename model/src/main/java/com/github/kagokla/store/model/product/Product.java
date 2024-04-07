@@ -1,11 +1,11 @@
 package com.github.kagokla.store.model.product;
 
 import com.github.kagokla.store.model.BaseEntity;
-import com.github.kagokla.store.model.price.Price;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import com.github.kagokla.store.model.utils.ValidatorUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.javamoney.moneta.Money;
 
 @Getter
 public class Product extends BaseEntity {
@@ -13,10 +13,10 @@ public class Product extends BaseEntity {
     private String name;
     @Setter
     private String description;
-    private Price price;
+    private Money price;
     private int stock;
 
-    public Product(final String name, final String description, final Price price, final int stock) {
+    public Product(final String name, final String description, final Money price, final int stock) {
         super(IdGeneratorUtils.generateRandomProductId());
 
         setName(name);
@@ -30,7 +30,7 @@ public class Product extends BaseEntity {
         this.name = name;
     }
 
-    public void setPrice(final Price price) {
+    public void setPrice(final Money price) {
         ValidatorUtils.requireNonNull(price, "price");
         this.price = price;
     }

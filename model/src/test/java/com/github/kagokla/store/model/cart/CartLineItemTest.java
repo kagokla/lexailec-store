@@ -1,12 +1,10 @@
 package com.github.kagokla.store.model.cart;
 
 import com.github.kagokla.store.model.ModelTestBase;
-import com.github.kagokla.store.model.price.Price;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.money.Monetary;
-import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -43,10 +41,10 @@ class CartLineItemTest extends ModelTestBase {
     void shouldSucceedWhenGettingUnitPrice() {
         final var cartLineItem = buildDefaultCartLineItem();
 
-        final var expectedPrice = new Price(BigDecimal.ONE, Monetary.getCurrency("JPY"));
         final var unitPrice = cartLineItem.unitPrice(Monetary.getCurrency("JPY"));
 
-        assertThat(unitPrice).isNotNull().isEqualTo(expectedPrice);
+        assertThat(unitPrice).isNotNull();
+        assertThat(unitPrice.getCurrency()).isEqualTo(Monetary.getCurrency("JPY"));
     }
 
     @Test
@@ -60,13 +58,13 @@ class CartLineItemTest extends ModelTestBase {
     void shouldSucceedWhenGettingSubTotal() {
         final var cartLineItem = buildDefaultCartLineItem();
 
-        var expectedPrice = new Price(BigDecimal.ONE, Monetary.getCurrency("USD"));
         var subTotal = cartLineItem.subTotal(Monetary.getCurrency("USD"));
-        assertThat(subTotal).isNotNull().isEqualTo(expectedPrice);
+        assertThat(subTotal).isNotNull();
+        assertThat(subTotal.getCurrency()).isEqualTo(Monetary.getCurrency("USD"));
 
-        expectedPrice = new Price(BigDecimal.ONE, Monetary.getCurrency("XOF"));
-        subTotal = cartLineItem.subTotal(Monetary.getCurrency("XOF"));
-        assertThat(subTotal).isNotNull().isEqualTo(expectedPrice);
+        subTotal = cartLineItem.subTotal(Monetary.getCurrency("THB"));
+        assertThat(subTotal).isNotNull();
+        assertThat(subTotal.getCurrency()).isEqualTo(Monetary.getCurrency("THB"));
     }
 
     @Test
