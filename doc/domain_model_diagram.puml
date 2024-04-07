@@ -44,7 +44,7 @@ entity Customer extends BaseEntity {
 
 class Price {
 - amount : BigDecimal
-- currency : Currency
+- currency : CurrencyUnit
 + add(Price) : Price
 + multiply(int) : Price
 }
@@ -53,7 +53,7 @@ entity Product extends BaseEntity {
 - name : String
 - description : String
 - price : Price
-- remainingStock : int
+- stock : int
 }
 
 enum PaymentStatus {
@@ -84,11 +84,20 @@ entity Shipment extends BaseEntity {
 + void setCompletedAt(Date)
 }
 
+entity CartLineItem extends BaseEntity {
+- product : Product
++ void increaseQuantity(quantity : int)
++ Price unitPrice(currency : CurrencyUnit)
++ Price subtotal(currency : CurrencyUnit)
+}
+
 entity Cart extends BaseEntity {
-- customer : BaseEntity
-- productToQuantity : Hashmap<Product, int>
+- customerId : BaseEntity
+- cartLineItems : Hashmap<String, CartLineItem>
 - totalAmount : Price
-+ void addProduct(product : Product, quantity : int)
++ void changeCurrency(currency : CurrencyUnit))
++ void addLineItemOrIncreaseLineItemQuantity(product : Product, quantity : int)
++ void replaceLineItem(product : Product, quantity : int)
 }
 
 enum OrderStatus {
@@ -103,8 +112,9 @@ entity Order extends BaseEntity {
 + void setCompletedAt(Date)
 }
 
-Cart o-- Product
-Cart *-- Customer
+CartLineItem --> "1" Product
+Cart "1" *-- "many" CartLineItem : contains
+Customer *-- Cart
 Payment -- Price
 Product -- Price
 OrderStatus *-- Order : use
