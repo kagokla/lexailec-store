@@ -17,7 +17,7 @@ class ProductTest extends ModelTestBase {
     void shouldCreateNewProduct() {
         final var product = buildRandomProduct();
 
-        assertProductIsValid(product);
+        assertThatProductIsValid(product);
     }
 
     @Test
@@ -25,7 +25,7 @@ class ProductTest extends ModelTestBase {
         final var product = buildRandomProduct();
         product.setName("shouldSucceedWhenSettingValidName");
 
-        assertProductIsValid(product);
+        assertThatProductIsValid(product);
     }
 
     @Test
@@ -41,12 +41,12 @@ class ProductTest extends ModelTestBase {
         final var product = buildRandomProduct();
 
         product.setDescription("shouldSucceedWhenSettingDescription");
-        assertProductIsValid(product);
+        assertThatProductIsValid(product);
         Assertions.assertThat(product.getDescription()).isNotBlank();
 
 
         product.setDescription(null);
-        assertProductIsValid(product);
+        assertThatProductIsValid(product);
         Assertions.assertThat(product.getDescription()).isNull();
     }
 
@@ -57,7 +57,7 @@ class ProductTest extends ModelTestBase {
 
         product.setPrice(price);
 
-        assertProductIsValid(product);
+        assertThatProductIsValid(product);
     }
 
     @Test
@@ -71,21 +71,21 @@ class ProductTest extends ModelTestBase {
     void shouldSucceedWhenSettingValidRemainingStock() {
         final var product = buildRandomProduct();
 
-        product.setRemainingStock(20);
-        assertProductIsValid(product);
+        product.setStock(20);
+        assertThatProductIsValid(product);
     }
 
     @Test
     void shouldFailWhenSettingInvalidRemainingStock() {
         final var product = buildRandomProduct();
 
-        assertThatIllegalArgumentException().isThrownBy(() -> product.setRemainingStock(-5));
+        assertThatIllegalArgumentException().isThrownBy(() -> product.setStock(-5));
     }
 
     @Test
     void shouldFailWhenComparingProductsWithDifferentId() {
         final var firstProduct = buildRandomProduct();
-        final var secondProduct = new Product(firstProduct.getName(), firstProduct.getDescription(), firstProduct.getPrice(), firstProduct.getRemainingStock());
+        final var secondProduct = new Product(firstProduct.getName(), firstProduct.getDescription(), firstProduct.getPrice(), firstProduct.getStock());
 
         assertThat(firstProduct).isNotNull().isNotEqualTo(secondProduct);
     }
@@ -97,11 +97,11 @@ class ProductTest extends ModelTestBase {
         assertThat(product).isNotNull().asString().startsWith("Product");
     }
 
-    private void assertProductIsValid(final Product product) {
+    private void assertThatProductIsValid(final Product product) {
         assertThat(product).isNotNull();
         assertThat(product.getId()).startsWith(IdGeneratorUtils.PRODUCT_ID_PREFIX);
         assertThat(product.getName()).isNotBlank();
         assertThat(product.getPrice()).isNotNull();
-        assertThat(product.getRemainingStock()).isPositive().isLessThan(100);
+        assertThat(product.getStock()).isPositive().isLessThan(100);
     }
 }
