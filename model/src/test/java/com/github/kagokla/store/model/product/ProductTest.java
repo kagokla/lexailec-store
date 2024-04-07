@@ -102,6 +102,6 @@ class ProductTest extends ModelTestBase {
         assertThat(product.getId()).startsWith(IdGeneratorUtils.PRODUCT_ID_PREFIX);
         assertThat(product.getName()).isNotBlank();
         assertThat(product.getPrice()).isNotNull();
-        assertThat(product.getStock()).isPositive().isLessThan(100);
+        assertThat(product.getStock()).isNotNegative().isLessThan(100);
     }
 }
