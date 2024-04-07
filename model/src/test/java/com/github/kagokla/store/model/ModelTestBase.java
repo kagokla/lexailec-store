@@ -24,8 +24,15 @@ public abstract class ModelTestBase {
     protected Product buildRandomProduct() {
         final var name = RandomStringUtils.randomAlphabetic(10);
         final var description = "Description for: " + name;
-        final var price = buildPriceUSD(BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP));
+        final var price = buildPriceEUR(BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP));
 
         return new Product(name, description, price, random.nextInt(100));
+    }
+
+    protected Product buildPEAABook() {
+        final var name = "Patterns of Enterprise Application Architecture";
+        final var price = buildPriceEUR(new BigDecimal("45.81"));
+
+        return new Product(name, null, price, 50);
     }
 }
