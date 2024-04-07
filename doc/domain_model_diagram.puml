@@ -42,17 +42,10 @@ entity Customer extends BaseEntity {
 + updateAddress(Address) : Customer
 }
 
-class Price {
-- amount : BigDecimal
-- currency : CurrencyUnit
-+ add(Price) : Price
-+ multiply(int) : Price
-}
-
 entity Product extends BaseEntity {
 - name : String
 - description : String
-- price : Price
+- price : Money
 - stock : int
 }
 
@@ -70,7 +63,7 @@ PAYPAL
 
 entity Payment extends BaseEntity {
 - paymentMethod : PaymentMethod
-- totalAmount : Price
+- totalAmount : Money
 - status : PaymentStatus
 + void setStatus(PaymentStatus)
 + void setCompletedAt(Date)
@@ -87,14 +80,14 @@ entity Shipment extends BaseEntity {
 entity CartLineItem extends BaseEntity {
 - product : Product
 + void increaseQuantity(quantity : int)
-+ Price unitPrice(currency : CurrencyUnit)
-+ Price subtotal(currency : CurrencyUnit)
++ Money unitPrice(currency : CurrencyUnit)
++ Money subtotal(currency : CurrencyUnit)
 }
 
 entity Cart extends BaseEntity {
 - customerId : BaseEntity
 - cartLineItems : Hashmap<String, CartLineItem>
-- totalAmount : Price
+- totalAmount : Money
 + void changeCurrency(currency : CurrencyUnit))
 + void addLineItemOrIncreaseLineItemQuantity(product : Product, quantity : int)
 + void replaceLineItem(product : Product, quantity : int)
@@ -115,8 +108,6 @@ entity Order extends BaseEntity {
 CartLineItem --> "1" Product
 Cart "1" *-- "many" CartLineItem : contains
 Customer *-- Cart
-Payment -- Price
-Product -- Price
 OrderStatus *-- Order : use
 PaymentStatus *-- Payment : use
 PaymentMethod *-- Payment : use
