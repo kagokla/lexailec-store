@@ -29,15 +29,32 @@ class IdGeneratorUtilsTest {
     void shouldSucceedWhenGenerateRandomProductId() {
         final var randomProductId = IdGeneratorUtils.generateRandomProductId();
 
-        assertThat(randomProductId).isNotBlank().startsWith(IdGeneratorUtils.PRODUCT_ID_PREFIX);
-        assertThat(randomProductId.length()).isGreaterThan(IdGeneratorUtils.PRODUCT_ID_PREFIX.length());
+        assertThatIdIsValid(randomProductId, IdGeneratorUtils.PRODUCT_ID_PREFIX);
     }
 
     @Test
     void shouldSucceedWhenGenerateRandomCustomerId() {
         final var randomCustomerId = IdGeneratorUtils.generateRandomCustomerId();
 
-        assertThat(randomCustomerId).isNotBlank().startsWith(IdGeneratorUtils.CUSTOMER_ID_PREFIX);
-        assertThat(randomCustomerId.length()).isGreaterThan(IdGeneratorUtils.CUSTOMER_ID_PREFIX.length());
+        assertThatIdIsValid(randomCustomerId, IdGeneratorUtils.CUSTOMER_ID_PREFIX);
+    }
+
+    @Test
+    void shouldSucceedWhenGenerateRandomCartId() {
+        final var randomCartId = IdGeneratorUtils.generateRandomCartId();
+
+        assertThatIdIsValid(randomCartId, IdGeneratorUtils.CART_ID_PREFIX);
+    }
+
+    @Test
+    void shouldSucceedWhenGenerateRandomCartLineItemId() {
+        final var randomCartLineItemId = IdGeneratorUtils.generateRandomCartLineItemId();
+
+        assertThatIdIsValid(randomCartLineItemId, IdGeneratorUtils.CART_LINE_ITEM_ID_PREFIX);
+    }
+
+    private void assertThatIdIsValid(final String randomId, final String randomIdPrefix) {
+        assertThat(randomId).isNotBlank().startsWith(randomIdPrefix);
+        assertThat(randomId.length()).isGreaterThan(randomIdPrefix.length());
     }
 }
