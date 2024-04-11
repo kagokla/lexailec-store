@@ -2,8 +2,10 @@ package com.github.kagokla.store.model;
 
 import com.github.kagokla.store.model.utils.ValidatorUtils;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
 @Getter
+@Accessors(fluent = true)
 public abstract class BaseEntity {
 
     protected final String id;
@@ -21,7 +23,7 @@ public abstract class BaseEntity {
             return false;
         }
         final var other = (BaseEntity) o;
-        return getId() != null && getId().equals(other.getId());
+        return id() != null && id().equals(other.id());
     }
 
     @Override

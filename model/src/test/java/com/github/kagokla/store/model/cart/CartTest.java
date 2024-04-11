@@ -17,17 +17,22 @@ class CartTest extends ModelTestBase {
         final var cart = buildRandomCart();
 
         assertThat(cart).isNotNull();
-        assertThat(cart.getId()).startsWith(IdGeneratorUtils.CART_ID_PREFIX);
-        assertThat(cart.getCurrency()).isEqualByComparingTo(Monetary.getCurrency("EUR"));
+        assertThat(cart.id()).startsWith(IdGeneratorUtils.CART_ID_PREFIX);
+        assertThat(cart.currency()).isEqualByComparingTo(Monetary.getCurrency("EUR"));
     }
 
     @Test
-    void shouldFailWhenCustomerIdIsMissing() {
+    void shouldFailWhenCreatingCartWithMissingCustomerId() {
         assertThatIllegalArgumentException().isThrownBy(() -> new Cart(null));
     }
 
     @Test
-    void shouldFailWhenCustomerIdIsEmpty() {
+    void shouldFailWhenCreatingCartWithEmptyCustomerId() {
+        assertThatIllegalArgumentException().isThrownBy(() -> new Cart(""));
+    }
+
+    @Test
+    void shouldSucceedWhenChangingCartCurrency() {
         assertThatIllegalArgumentException().isThrownBy(() -> new Cart(""));
     }
 

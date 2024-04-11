@@ -5,9 +5,11 @@ import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import com.github.kagokla.store.model.utils.ValidatorUtils;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.javamoney.moneta.Money;
 
 @Getter
+@Accessors(fluent = true)
 public class Product extends BaseEntity {
 
     private String name;
@@ -19,23 +21,23 @@ public class Product extends BaseEntity {
     public Product(final String name, final String description, final Money price, final int stock) {
         super(IdGeneratorUtils.generateRandomProductId());
 
-        setName(name);
+        name(name);
         this.description = description;
-        setPrice(price);
-        setStock(stock);
+        price(price);
+        stock(stock);
     }
 
-    public void setName(final String name) {
+    public void name(final String name) {
         ValidatorUtils.requireNonBlank(name, "name");
         this.name = name;
     }
 
-    public void setPrice(final Money price) {
+    public void price(final Money price) {
         ValidatorUtils.requireNonNull(price, "price");
         this.price = price;
     }
 
-    public void setStock(final int stock) {
+    public void stock(final int stock) {
         ValidatorUtils.requireNonNegative(stock, "stock");
         this.stock = stock;
     }

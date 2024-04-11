@@ -23,7 +23,7 @@ class ProductTest extends ModelTestBase {
     @Test
     void shouldSucceedWhenSettingValidName() {
         final var product = buildRandomProduct();
-        product.setName("shouldSucceedWhenSettingValidName");
+        product.name("shouldSucceedWhenSettingValidName");
 
         assertThatProductIsValid(product);
     }
@@ -32,22 +32,22 @@ class ProductTest extends ModelTestBase {
     void shouldFailWhenSettingInvalidName() {
         final var product = buildRandomProduct();
 
-        assertThatIllegalArgumentException().isThrownBy(() -> product.setName(null));
-        assertThatIllegalArgumentException().isThrownBy(() -> product.setName("        "));
+        assertThatIllegalArgumentException().isThrownBy(() -> product.name(null));
+        assertThatIllegalArgumentException().isThrownBy(() -> product.name("        "));
     }
 
     @Test
     void shouldSucceedWhenSettingDescription() {
         final var product = buildRandomProduct();
 
-        product.setDescription("shouldSucceedWhenSettingDescription");
+        product.description("shouldSucceedWhenSettingDescription");
         assertThatProductIsValid(product);
-        Assertions.assertThat(product.getDescription()).isNotBlank();
+        Assertions.assertThat(product.description()).isNotBlank();
 
 
-        product.setDescription(null);
+        product.description(null);
         assertThatProductIsValid(product);
-        Assertions.assertThat(product.getDescription()).isNull();
+        Assertions.assertThat(product.description()).isNull();
     }
 
     @Test
@@ -55,7 +55,7 @@ class ProductTest extends ModelTestBase {
         final var product = buildRandomProduct();
         final var price = buildPriceEUR(BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP));
 
-        product.setPrice(price);
+        product.price(price);
 
         assertThatProductIsValid(product);
     }
@@ -64,14 +64,14 @@ class ProductTest extends ModelTestBase {
     void shouldFailWhenSettingInvalidPrice() {
         final var product = buildRandomProduct();
 
-        assertThatIllegalArgumentException().isThrownBy(() -> product.setPrice(null));
+        assertThatIllegalArgumentException().isThrownBy(() -> product.price(null));
     }
 
     @Test
     void shouldSucceedWhenSettingValidRemainingStock() {
         final var product = buildRandomProduct();
 
-        product.setStock(20);
+        product.stock(20);
         assertThatProductIsValid(product);
     }
 
@@ -79,13 +79,13 @@ class ProductTest extends ModelTestBase {
     void shouldFailWhenSettingInvalidRemainingStock() {
         final var product = buildRandomProduct();
 
-        assertThatIllegalArgumentException().isThrownBy(() -> product.setStock(-5));
+        assertThatIllegalArgumentException().isThrownBy(() -> product.stock(-5));
     }
 
     @Test
     void shouldFailWhenComparingProductsWithDifferentId() {
         final var firstProduct = buildRandomProduct();
-        final var secondProduct = new Product(firstProduct.getName(), firstProduct.getDescription(), firstProduct.getPrice(), firstProduct.getStock());
+        final var secondProduct = new Product(firstProduct.name(), firstProduct.description(), firstProduct.price(), firstProduct.stock());
 
         assertThat(firstProduct).isNotNull().isNotEqualTo(secondProduct);
     }
@@ -99,9 +99,9 @@ class ProductTest extends ModelTestBase {
 
     private void assertThatProductIsValid(final Product product) {
         assertThat(product).isNotNull();
-        assertThat(product.getId()).startsWith(IdGeneratorUtils.PRODUCT_ID_PREFIX);
-        assertThat(product.getName()).isNotBlank();
-        assertThat(product.getPrice()).isNotNull();
-        assertThat(product.getStock()).isNotNegative().isLessThan(100);
+        assertThat(product.id()).startsWith(IdGeneratorUtils.PRODUCT_ID_PREFIX);
+        assertThat(product.name()).isNotBlank();
+        assertThat(product.price()).isNotNull();
+        assertThat(product.stock()).isNotNegative().isLessThan(100);
     }
 }

@@ -15,8 +15,8 @@ class CartLineItemTest extends ModelTestBase {
         final var cartLineItem = buildDefaultCartLineItem();
 
         assertThat(cartLineItem).isNotNull();
-        assertThat(cartLineItem.getId()).startsWith(IdGeneratorUtils.CART_LINE_ITEM_ID_PREFIX);
-        assertThat(cartLineItem.getQuantity()).isPositive();
+        assertThat(cartLineItem.id()).startsWith(IdGeneratorUtils.CART_LINE_ITEM_ID_PREFIX);
+        assertThat(cartLineItem.quantity()).isPositive();
     }
 
     @Test
@@ -32,7 +32,7 @@ class CartLineItemTest extends ModelTestBase {
     @Test
     void shouldFailWhenItemQuantityGreaterThanStock() {
         final var product = buildRandomProduct();
-        final var quantity = product.getStock() * 10;
+        final var quantity = product.stock() * 10;
 
         assertThatExceptionOfType(NotEnoughItemsInStockException.class).isThrownBy(() -> new CartLineItem(product, quantity));
     }
@@ -80,7 +80,7 @@ class CartLineItemTest extends ModelTestBase {
 
         cartLineItem.increaseQuantity(15);
 
-        assertThat(cartLineItem.getQuantity()).isEqualTo(20);
+        assertThat(cartLineItem.quantity()).isEqualTo(20);
     }
 
     @Test

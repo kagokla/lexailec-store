@@ -6,11 +6,13 @@ import com.github.kagokla.store.model.product.Product;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import com.github.kagokla.store.model.utils.ValidatorUtils;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.javamoney.moneta.Money;
 
 import javax.money.CurrencyUnit;
 import javax.money.convert.MonetaryConversions;
 
+@Accessors(fluent = true)
 public class CartLineItem extends BaseEntity {
 
     private final Product product;
@@ -36,7 +38,7 @@ public class CartLineItem extends BaseEntity {
     public Money unitPrice(final CurrencyUnit currency) {
         ValidatorUtils.requireNonNull(currency, "currency");
 
-        final var productPrice = product.getPrice();
+        final var productPrice = product.price();
         final var currencyConversion = MonetaryConversions.getConversion(currency);
 
         return productPrice.with(currencyConversion);
@@ -48,14 +50,14 @@ public class CartLineItem extends BaseEntity {
     }
 
     private void setQuantity(final int quantity) {
-        if (product.getStock() < quantity) {
-            throw new NotEnoughItemsInStockException(product.getStock(), product.getId(), quantity);
+        if (product.stock() < quantity) {
+            throw new NotEnoughItemsInStockException(product.stock(), product.id(), quantity);
         }
 
         this.quantity = quantity;
     }
 
     public String toString() {
-        return "CartLineItem(Id=" + id + ", productId=" + product.getId() + ", quantity=" + quantity + ")";
+        return "CartLineItem(Id=" + id + ", productId=" + product.id() + ", quantity=" + quantity + ")";
     }
 }
