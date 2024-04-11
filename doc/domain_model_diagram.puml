@@ -2,7 +2,7 @@
 'https://plantuml.com/class-diagram
 
 
-class BaseEntity {
+abstract class BaseEntity {
 - id : String
 }
 
@@ -77,14 +77,14 @@ entity Shipment extends BaseEntity {
 + void setCompletedAt(Date)
 }
 
-entity CartLineItem extends BaseEntity {
+entity cart.CartLineItem extends BaseEntity {
 - product : Product
 + void increaseQuantity(quantity : int)
 + Money unitPrice(currency : CurrencyUnit)
 + Money subtotal(currency : CurrencyUnit)
 }
 
-entity Cart extends BaseEntity {
+entity cart.Cart extends BaseEntity {
 - customerId : BaseEntity
 - cartLineItems : Hashmap<String, CartLineItem>
 - totalAmount : Money
