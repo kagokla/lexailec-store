@@ -44,7 +44,6 @@ class ProductTest extends ModelTestBase {
         assertThatProductIsValid(product);
         Assertions.assertThat(product.description()).isNotBlank();
 
-
         product.description(null);
         assertThatProductIsValid(product);
         Assertions.assertThat(product.description()).isNull();
@@ -85,7 +84,8 @@ class ProductTest extends ModelTestBase {
     @Test
     void shouldFailWhenComparingProductsWithDifferentId() {
         final var firstProduct = buildRandomProductWithPriceUSD();
-        final var secondProduct = new Product(firstProduct.name(), firstProduct.description(), firstProduct.price(), firstProduct.stock());
+        final var secondProduct = new Product(
+                firstProduct.name(), firstProduct.description(), firstProduct.price(), firstProduct.stock());
 
         assertThat(firstProduct).isNotNull().isNotEqualTo(secondProduct);
     }

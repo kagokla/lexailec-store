@@ -13,8 +13,10 @@ import org.javamoney.moneta.Money;
 public class Product extends BaseEntity {
 
     private String name;
+
     @Setter
     private String description;
+
     private Money price;
     private int stock;
 

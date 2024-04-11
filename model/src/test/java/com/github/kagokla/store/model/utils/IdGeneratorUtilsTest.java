@@ -1,6 +1,5 @@
 package com.github.kagokla.store.model.utils;
 
-
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.Collectors;
@@ -20,7 +19,9 @@ class IdGeneratorUtilsTest {
     @Test
     void shouldNotCollideWhenGenerateRandomIdSeveralTimes() {
         final var numberRandomIds = 100000;
-        final var randomIds = Stream.generate(IdGeneratorUtils::generateRandomId).limit(numberRandomIds).collect(Collectors.toSet());
+        final var randomIds = Stream.generate(IdGeneratorUtils::generateRandomId)
+                .limit(numberRandomIds)
+                .collect(Collectors.toSet());
 
         assertThat(randomIds).hasSize(numberRandomIds);
     }

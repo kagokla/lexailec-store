@@ -32,7 +32,8 @@ class CartLineItemTest extends ModelTestBase {
         final var product = buildRandomProductWithPriceUSD();
         final var quantity = product.stock() * 10;
 
-        assertThatExceptionOfType(NotEnoughItemsInStockException.class).isThrownBy(() -> new CartLineItem(product, quantity));
+        assertThatExceptionOfType(NotEnoughItemsInStockException.class)
+                .isThrownBy(() -> new CartLineItem(product, quantity));
     }
 
     @Test
@@ -90,7 +91,8 @@ class CartLineItemTest extends ModelTestBase {
     void shouldFailWhenIncreasingItemQuantityMoreThanStock() {
         final var cartLineItem = buildDefaultCartLineItem();
 
-        assertThatExceptionOfType(NotEnoughItemsInStockException.class).isThrownBy(() -> cartLineItem.increaseQuantity(1000));
+        assertThatExceptionOfType(NotEnoughItemsInStockException.class)
+                .isThrownBy(() -> cartLineItem.increaseQuantity(1000));
     }
 
     @Test
