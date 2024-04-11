@@ -1,7 +1,6 @@
 package com.github.kagokla.store.model.cart;
 
 import com.github.kagokla.store.model.ModelTestBase;
-import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.money.Monetary;
@@ -15,7 +14,6 @@ class CartLineItemTest extends ModelTestBase {
         final var cartLineItem = buildDefaultCartLineItem();
 
         assertThat(cartLineItem).isNotNull();
-        assertThat(cartLineItem.id()).startsWith(IdGeneratorUtils.CART_LINE_ITEM_ID_PREFIX);
         assertThat(cartLineItem.quantity()).isPositive();
     }
 
@@ -26,12 +24,12 @@ class CartLineItemTest extends ModelTestBase {
 
     @Test
     void shouldFailWhenItemQuantityIsNegative() {
-        assertThatIllegalArgumentException().isThrownBy(() -> new CartLineItem(buildRandomProduct(), -6));
+        assertThatIllegalArgumentException().isThrownBy(() -> new CartLineItem(buildRandomProductWithPriceUSD(), -6));
     }
 
     @Test
     void shouldFailWhenItemQuantityGreaterThanStock() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
         final var quantity = product.stock() * 10;
 
         assertThatExceptionOfType(NotEnoughItemsInStockException.class).isThrownBy(() -> new CartLineItem(product, quantity));
@@ -78,9 +76,7 @@ class CartLineItemTest extends ModelTestBase {
     void shouldSucceedWhenIncreasingItemQuantity() {
         final var cartLineItem = buildDefaultCartLineItem();
 
-        cartLineItem.increaseQuantity(15);
-
-        assertThat(cartLineItem.quantity()).isEqualTo(20);
+        assertThat(cartLineItem.increaseQuantity(15).quantity()).isEqualTo(20);
     }
 
     @Test
@@ -101,7 +97,7 @@ class CartLineItemTest extends ModelTestBase {
     void shouldReturnStringRepresentation() {
         final var cartLineItem = buildDefaultCartLineItem();
 
-        assertThat(cartLineItem).isNotNull().asString().startsWith("CartLineItem");
+        assertThat(cartLineItem).asString().startsWith("CartLineItem");
     }
 
     private CartLineItem buildDefaultCartLineItem() {

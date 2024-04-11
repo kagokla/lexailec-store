@@ -46,13 +46,6 @@ class IdGeneratorUtilsTest {
         assertThatIdIsValid(randomCartId, IdGeneratorUtils.CART_ID_PREFIX);
     }
 
-    @Test
-    void shouldSucceedWhenGenerateRandomCartLineItemId() {
-        final var randomCartLineItemId = IdGeneratorUtils.generateRandomCartLineItemId();
-
-        assertThatIdIsValid(randomCartLineItemId, IdGeneratorUtils.CART_LINE_ITEM_ID_PREFIX);
-    }
-
     private void assertThatIdIsValid(final String randomId, final String randomIdPrefix) {
         assertThat(randomId).isNotBlank().startsWith(randomIdPrefix);
         assertThat(randomId.length()).isGreaterThan(randomIdPrefix.length());
