@@ -1,12 +1,12 @@
 package com.github.kagokla.store.model.cart;
 
-
 import com.github.kagokla.store.model.BaseEntity;
 import com.github.kagokla.store.model.product.Product;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import com.github.kagokla.store.model.utils.ValidatorUtils;
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import org.javamoney.moneta.Money;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -17,10 +17,10 @@ import java.util.Map;
 @Accessors(fluent = true)
 public class Cart extends BaseEntity {
 
-    private static final int MAX_CART_ITEMS = 10;
-    @Getter
+    public static final int MAX_CART_ITEMS = 10;
     private final String customerId;
-    private final Map<String, Integer> cartItems = LinkedHashMap.newLinkedHashMap(MAX_CART_ITEMS);
+    private final Map<String, CartLineItem> cartLineItems = LinkedHashMap.newLinkedHashMap(MAX_CART_ITEMS);
+
     @Getter
     private CurrencyUnit currency;
 
@@ -36,27 +36,36 @@ public class Cart extends BaseEntity {
         this.currency = Monetary.getCurrency("EUR");
     }
 
-    public void addLineItemOrIncreaseLineItem(final Product product, final int quantity)
-            throws MaxCartItemsReachedException, NotEnoughItemsInStockException {
+    public void addLineItemOrIncreaseLineItem(final Product product, final int quantity) {
         ValidatorUtils.requireNonNull(product, "product");
         ValidatorUtils.requireNonNegative(quantity, "quantity");
 
-        if (cartItems.size() >= MAX_CART_ITEMS) {
+        if (!cartLineItems.containsKey(product.id()) && MAX_CART_ITEMS == cartLineItems.size()) {
             throw new MaxCartItemsReachedException(MAX_CART_ITEMS);
         }
-        cartItems
-                .putIfAbsent(product.id(), quantity);
+
+        cartLineItems.merge(
+                product.id(),
+                new CartLineItem(product, quantity),
+                (oldValue, value) -> oldValue.increaseQuantity(quantity));
     }
 
-    public void replaceLineItem(final Product product, final int quantity)
-            throws UnknownCartItemException, NotEnoughItemsInStockException {
-        if (!cartItems.containsKey(product.id())) {
+    public void replaceLineItem(final Product product, final int quantity) {
+        if (!cartLineItems.containsKey(product.id())) {
             throw new UnknownCartItemException(product.id());
         }
+
+        cartLineItems.put(product.id(), new CartLineItem(product, quantity));
     }
 
-    public List<Integer> getLineItems() {
-        return List.copyOf(cartItems.values());
+    public Money subTotal() {
+        return cartLineItems.values().stream()
+                .map(item -> item.subTotal(currency))
+                .reduce(Money.zero(currency), Money::add);
+    }
+
+    public List<CartLineItem> getLineItems() {
+        return List.copyOf(cartLineItems.values());
     }
 
     public void changeCurrency(final CurrencyUnit currency) {
@@ -68,5 +77,4 @@ public class Cart extends BaseEntity {
     public String toString() {
         return "Cart(Id=" + id + ", customerId=" + customerId + ", currency=" + currency.getCurrencyCode() + ")";
     }
-
 }
