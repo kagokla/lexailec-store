@@ -15,14 +15,14 @@ class ProductTest extends ModelTestBase {
 
     @Test
     void shouldCreateNewProduct() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
 
         assertThatProductIsValid(product);
     }
 
     @Test
     void shouldSucceedWhenSettingValidName() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
         product.name("shouldSucceedWhenSettingValidName");
 
         assertThatProductIsValid(product);
@@ -30,7 +30,7 @@ class ProductTest extends ModelTestBase {
 
     @Test
     void shouldFailWhenSettingInvalidName() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
 
         assertThatIllegalArgumentException().isThrownBy(() -> product.name(null));
         assertThatIllegalArgumentException().isThrownBy(() -> product.name("        "));
@@ -38,7 +38,7 @@ class ProductTest extends ModelTestBase {
 
     @Test
     void shouldSucceedWhenSettingDescription() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
 
         product.description("shouldSucceedWhenSettingDescription");
         assertThatProductIsValid(product);
@@ -52,7 +52,7 @@ class ProductTest extends ModelTestBase {
 
     @Test
     void shouldSucceedWhenSettingValidPrice() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
         final var price = buildPriceEUR(BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP));
 
         product.price(price);
@@ -62,14 +62,14 @@ class ProductTest extends ModelTestBase {
 
     @Test
     void shouldFailWhenSettingInvalidPrice() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
 
         assertThatIllegalArgumentException().isThrownBy(() -> product.price(null));
     }
 
     @Test
     void shouldSucceedWhenSettingValidRemainingStock() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
 
         product.stock(20);
         assertThatProductIsValid(product);
@@ -77,14 +77,14 @@ class ProductTest extends ModelTestBase {
 
     @Test
     void shouldFailWhenSettingInvalidRemainingStock() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
 
         assertThatIllegalArgumentException().isThrownBy(() -> product.stock(-5));
     }
 
     @Test
     void shouldFailWhenComparingProductsWithDifferentId() {
-        final var firstProduct = buildRandomProduct();
+        final var firstProduct = buildRandomProductWithPriceUSD();
         final var secondProduct = new Product(firstProduct.name(), firstProduct.description(), firstProduct.price(), firstProduct.stock());
 
         assertThat(firstProduct).isNotNull().isNotEqualTo(secondProduct);
@@ -92,9 +92,9 @@ class ProductTest extends ModelTestBase {
 
     @Test
     void shouldReturnStringRepresentation() {
-        final var product = buildRandomProduct();
+        final var product = buildRandomProductWithPriceUSD();
 
-        assertThat(product).isNotNull().asString().startsWith("Product");
+        assertThat(product).asString().startsWith("Product");
     }
 
     private void assertThatProductIsValid(final Product product) {

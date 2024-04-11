@@ -21,7 +21,7 @@ public abstract class ModelTestBase {
         return Money.of(expectedAmount, Monetary.getCurrency("USD"));
     }
 
-    protected Product buildRandomProduct() {
+    protected Product buildRandomProductWithPriceUSD() {
         final var name = RandomStringUtils.randomAlphabetic(10);
         final var description = "Description for: " + name;
         final var price = buildPriceUSD(BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP));
