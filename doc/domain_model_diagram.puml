@@ -81,16 +81,16 @@ entity cart.CartLineItem extends BaseEntity {
 - product : Product
 + void increaseQuantity(quantity : int)
 + Money unitPrice(currency : CurrencyUnit)
-+ Money subtotal(currency : CurrencyUnit)
++ Money subTotal(currency : CurrencyUnit)
 }
 
 entity cart.Cart extends BaseEntity {
 - customerId : BaseEntity
 - cartLineItems : Hashmap<String, CartLineItem>
-- totalAmount : Money
 + void changeCurrency(currency : CurrencyUnit))
 + void addLineItemOrIncreaseLineItemQuantity(product : Product, quantity : int)
 + void replaceLineItem(product : Product, quantity : int)
++ Money subTotal()
 }
 
 enum OrderStatus {
