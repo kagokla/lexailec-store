@@ -1,13 +1,13 @@
 package com.github.kagokla.store.model.cart;
 
-import com.github.kagokla.store.model.ModelTestBase;
+import com.github.kagokla.store.model.TestModelFactory;
 import org.junit.jupiter.api.Test;
 
 import javax.money.Monetary;
 
 import static org.assertj.core.api.Assertions.*;
 
-class CartLineItemTest extends ModelTestBase {
+class CartLineItemTest extends TestModelFactory {
 
     @Test
     void shouldCreateNewCartLineItem() {

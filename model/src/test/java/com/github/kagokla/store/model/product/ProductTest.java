@@ -1,6 +1,6 @@
 package com.github.kagokla.store.model.product;
 
-import com.github.kagokla.store.model.ModelTestBase;
+import com.github.kagokla.store.model.TestModelFactory;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import java.math.RoundingMode;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-class ProductTest extends ModelTestBase {
+class ProductTest extends TestModelFactory {
 
     @Test
     void shouldCreateNewProduct() {

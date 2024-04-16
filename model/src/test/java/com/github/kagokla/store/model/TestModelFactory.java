@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.SecureRandom;
 
-public abstract class ModelTestBase {
+public abstract class TestModelFactory {
 
     protected final SecureRandom random = new SecureRandom();
 

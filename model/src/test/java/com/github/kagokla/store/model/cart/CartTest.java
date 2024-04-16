@@ -1,6 +1,6 @@
 package com.github.kagokla.store.model.cart;
 
-import com.github.kagokla.store.model.ModelTestBase;
+import com.github.kagokla.store.model.TestModelFactory;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import javax.money.convert.MonetaryConversions;
 
 import static org.assertj.core.api.Assertions.*;
 
-class CartTest extends ModelTestBase {
+class CartTest extends TestModelFactory {
 
     @Test
     void shouldCreateNewCart() {
