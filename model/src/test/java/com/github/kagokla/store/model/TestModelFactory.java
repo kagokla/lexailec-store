@@ -1,6 +1,6 @@
 package com.github.kagokla.store.model;
 
-import com.github.kagokla.store.model.product.Product;
+import com.github.kagokla.store.model.inventory.Product;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.javamoney.moneta.Money;
 

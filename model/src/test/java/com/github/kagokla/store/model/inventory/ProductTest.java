@@ -1,4 +1,4 @@
-package com.github.kagokla.store.model.product;
+package com.github.kagokla.store.model.inventory;
 
 import com.github.kagokla.store.model.TestModelFactory;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;

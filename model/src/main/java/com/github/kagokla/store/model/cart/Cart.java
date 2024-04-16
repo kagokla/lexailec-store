@@ -1,7 +1,7 @@
 package com.github.kagokla.store.model.cart;
 
 import com.github.kagokla.store.model.BaseEntity;
-import com.github.kagokla.store.model.product.Product;
+import com.github.kagokla.store.model.inventory.Product;
 import com.github.kagokla.store.model.utils.IdGeneratorUtils;
 import com.github.kagokla.store.model.utils.ValidatorUtils;
 import lombok.Getter;
