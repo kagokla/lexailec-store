@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+!pragma useIntermediatePackages false
+
+interface store.application.port.in.product.FindProductUseCase <<port>> {
+}
+
+interface store.application.port.in.cart.AddToCartUseCase <<port>> {
+}
+
+interface store.application.port.in.cart.GetCartUseCase <<port>> {
+}
+
+interface store.application.port.in.cart.EmptyCartUseCase <<port>> {
+}
+
+class store.application.service.product.FindProductService implements store.application.port.in.product.FindProductUseCase {
+}
+
+class store.application.service.cart.AddToCartService implements store.application.port.in.cart.AddToCartUseCase {
+}
+
+class store.application.service.cart.GetCartService implements store.application.port.in.cart.GetCartUseCase {
+}
+
+class store.application.service.cart.EmptyCartService implements store.application.port.in.cart.EmptyCartUseCase {
+}
+
+interface store.application.port.out.persistence.ProductRepository <<port>> {
+}
+
+interface store.application.port.out.persistence.CartRepository <<port>> {
+}
+
+store.application.service.product.FindProductService --> store.application.port.out.persistence.ProductRepository
+store.application.service.product.AddToCartService --> store.application.port.out.persistence.ProductRepository
+store.application.service.product.AddToCartService --> store.application.port.out.persistence.CartRepository
+store.application.service.product.GetCartService --> store.application.port.out.persistence.CartRepository
+store.application.service.product.EmptyCartService --> store.application.port.out.persistence.CartRepository
+
+@enduml
