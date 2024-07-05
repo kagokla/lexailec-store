@@ -22,6 +22,7 @@ dependencies {
     testImplementation(libs.archunit)
     testImplementation(libs.assertJ)
     testImplementation(libs.junit5.jupiter)
+    testImplementation(libs.bundles.mockito)
 }
 
 test {
