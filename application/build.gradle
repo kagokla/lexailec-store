@@ -1,6 +1,15 @@
 plugins {
     id 'lexailecstore.java-conventions'
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.pitest)
+}
+
+pitest {
+    junit5PluginVersion = '1.2.0'
 }
 
 dependencies {
+    implementation project(':model')
+
+    testImplementation(testFixtures(project(':model')))
 }
