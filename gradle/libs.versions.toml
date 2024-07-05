@@ -6,6 +6,7 @@ commons-lang3 = "3.14.0"
 junit5-jupiter = "5.10.2"
 lombok = "8.6"
 moneta = "1.4.4"
+mockito = "5.12.0"
 pitest = "1.15.0"
 
 [libraries]
@@ -15,12 +16,12 @@ apache-commons-collections4 = { module = "org.apache.commons:commons-collections
 apache-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
 junit5-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5-jupiter" }
 moneta = { module = "org.javamoney:moneta", version.ref = "moneta" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 
 [bundles]
-apache-common-helpers = [
-    "apache-commons-collections4",
-    "apache-commons-lang3",
-]
+apache-common-helpers = ["apache-commons-collections4", "apache-commons-lang3"]
+mockito = ["mockito-core", "mockito-junit-jupiter"]
 
 [plugins]
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
