@@ -101,7 +101,7 @@ class CartTest extends TestModelFactory {
         final var bookProduct = buildPEAABook();
         cart.addLineItemOrIncreaseLineItem(bookProduct, 2);
 
-        for (int i = 1; i < Cart.MAX_CART_ITEMS; i++) {
+        for (var i = 1; i < Cart.MAX_CART_ITEMS; i++) {
             final var product = buildRandomProductWithPriceUSD();
             cart.addLineItemOrIncreaseLineItem(product, product.stock());
         }

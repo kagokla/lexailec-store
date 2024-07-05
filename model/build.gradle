@@ -1,6 +1,7 @@
 plugins {
     id 'lexailecstore.java-conventions'
     // Moved here due to https://github.com/gradle/gradle/issues/15383
+    id 'java-test-fixtures'
     alias(libs.plugins.lombok)
     alias(libs.plugins.pitest)
 }
@@ -11,4 +12,7 @@ pitest {
 
 dependencies {
     implementation(libs.moneta)
+
+    testFixturesImplementation(libs.apache.commons.lang3)
+    testFixturesImplementation(libs.moneta)
 }
