@@ -13,7 +13,6 @@ public class FindProductService implements FindProductUseCase {
 
     private final ProductRepository productRepository;
 
-
     @Override
     public List<Product> findByNameOrDescription(final String query) {
         ValidatorUtils.requireNonNull(query, "query");
